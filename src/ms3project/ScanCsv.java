@@ -1,6 +1,5 @@
 package ms3project;
 
-//9/29 you now have two lists: clean and dirty. You also have counts of total, dirty and clean records.  Next export clean list to SQLite.  Write dirty list to csv.  Log the counts.  Then refactor, including breaking code up into classes.
 
 
 import java.io.File;
@@ -19,15 +18,19 @@ public class ScanCsv {
         String fileName= "/Users/robertsmiles1/post31119/eclipse-java/ms3project/src/ms3sample-cleaned.csv";
         File file= new File(fileName);
         
-        String query1 = "INSERT INTO test(name, age) VALUES('Angel',1000);";	
+
         
         SqliteDB db = new SqliteDB();
         
-        db.insertRecords(query1);
+//        String query1 = "INSERT INTO test(name, age) VALUES('Angel',1000);";	
+//        
+//        db.insertRecords(query1);
+//        
+//        db.getRecords();
         
-        db.getRecords();
         
-        db.closeConnection();
+        
+
         
         
     
@@ -68,8 +71,22 @@ public class ScanCsv {
     				};
 
     			} 
-        }  
-          
+        } 
+        
+        System.out.println("********** " + cleanList.get(0).getClass().getName());
+        
+        List<String> columnHeadings = cleanList.get(0);
+        
+        db.createTable(columnHeadings);
+        
+//        for (int x = 0; x < cleanList.size(); x++) {
+//        		if (x == 0) {
+//        			
+//        		}
+//        		for (List record:cleanList) {
+//        			
+//        		}
+//        }
         
         int successCount = totalCount - 1 - failureCount;
 
@@ -78,6 +95,8 @@ public class ScanCsv {
 		System.out.println(failureCount);
 		System.out.println("DirtyList: " + dirtyList);
 		System.out.println("Revised CleanList :" + cleanList);
+		
+        db.closeConnection();
 
     }
 

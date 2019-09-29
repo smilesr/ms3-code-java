@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SqliteDB {
 	Connection c = null;
@@ -19,7 +21,34 @@ public class SqliteDB {
 		}
 	}
 
+public void createTable(List<String> columnNames) {
+    System.out.println(columnNames);
+	try {
+	    this.stmt = c.createStatement();
+	    System.out.println(columnNames);
+	    String sql = "CREATE TABLE Interviews (";
+	    String columnHeadings = "";
+	    String endStatement = ");";
+	    for(String columnName : columnNames) {
+	    		System.out.println(columnName);
+	    		columnHeadings += " " + columnName + " TEXT,";
+	    }
+	    sql += columnHeadings;
+	    sql = sql.substring(0, sql.length() - 1);
+	    sql += endStatement;
+	    
+	    System.out.println(sql);
+	    stmt.executeQuery(sql);
 
+	} catch (Exception e) {
+		System.out.println("Error5: " + e.getMessage());
+	}
+
+    
+
+	
+}
+	
 public void getRecords() {
 	try {
 		this.stmt = c.createStatement();
@@ -41,7 +70,7 @@ public void getRecords() {
 public void insertRecords(String query ) {
 	try {
 		this.stmt = c.createStatement();
-		ResultSet rset = stmt.executeQuery(query);
+		stmt.executeQuery(query);
 		
 	} catch (Exception e) {
 		System.out.println("Error3: " + e.getMessage());
