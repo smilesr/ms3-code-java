@@ -12,7 +12,7 @@ import java.util.List;
 public class ScanCsv {
 
     public static void main(String[] args) throws IOException {
-        String fileName= "/Users/robertsmiles1/post31119/eclipse-java/ms3project/src/ms3sample-cleaned.csv";
+        String fileName= "/Users/robertsmiles1/post31119/eclipse-java/ms3project/src/cleanedms3Interview.csv";
         
         List<List<String>> lines = readTextFile(fileName);
         
@@ -27,7 +27,7 @@ public class ScanCsv {
         		innerLoop:
     			for (int i = 0; i < al.size(); i++) {
     				if (al.get(i).equals("")) {
-    					System.out.println(al);
+//    					System.out.println(al);
     					failureCount ++;
     					dirtyList.add(al);
     					cleanList.remove(al);
