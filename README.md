@@ -2,10 +2,10 @@
 
 The objectives are:
 
-Consume a CSV file, parse the data, and insert valid records into a SQLite DB.
-Verify each record needs to ensure it contains the right number of data elements (10).
-Write the records that did not have the right number of data elements to a .csv file.  ** NOT COMPLETED YET **
-After processing the data, write the following information to a .log file: a. # of records received b. # of records successful c. # of records failed  ** NOT COMPLETED YET **
++ Consume a CSV file, parse the data, and insert valid records into a SQLite DB.
++ Verify each record needs to ensure it contains the right number of data elements (10).
++ Write the records that did not have the right number of data elements to a .csv file.  ** NOT COMPLETED YET **
++ After processing the data, write the following information to a .log file: a. # of records received b. # of records successful c. # of records failed  ** NOT COMPLETED YET **
 
 Additional notes:
 
