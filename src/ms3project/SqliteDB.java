@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SqliteDB {
@@ -17,36 +16,46 @@ public class SqliteDB {
 			c = DriverManager.getConnection("jdbc:sqlite:ms3interviews.db");
 			System.out.println("Connected to DB");
 		} catch (Exception e) {
-			System.out.println("Error1: " + e.getMessage());
+			System.out.println(e.getMessage());
 		}
 	}
 
 public void createTable(List<String> columnNames) {
-    System.out.println(columnNames);
 	try {
 	    this.stmt = c.createStatement();
-	    System.out.println(columnNames);
 	    String sql = "CREATE TABLE Interviews (";
 	    String columnHeadings = "";
 	    String endStatement = ");";
 	    for(String columnName : columnNames) {
-	    		System.out.println(columnName);
 	    		columnHeadings += " " + columnName + " TEXT,";
 	    }
 	    sql += columnHeadings;
 	    sql = sql.substring(0, sql.length() - 1);
 	    sql += endStatement;
-	    
-	    System.out.println(sql);
-	    stmt.executeQuery(sql);
-
+	    stmt.execute(sql);
 	} catch (Exception e) {
-		System.out.println("Error5: " + e.getMessage());
-	}
+		System.out.println(e.getMessage());
+	}	
+}
 
-    
-
-	
+public void insertRecord(List<String> row) {
+	try {
+	   this.stmt = c.createStatement();
+	    String sql, cellString;
+	    String endStatement = ");";
+		    sql = "INSERT INTO Interviews(A,B,C,D,E,F,G,H,I,J) VALUES(";
+		    cellString = "";
+	    		for (String cell: row) {
+	    			cell = cell.replaceAll("\"","\\\\\'");
+	    			cell = "\"" + cell + "\"" +  ",";
+	    			cellString += cell;
+	    		}
+    		    cellString = cellString.substring(0, cellString.length() - 1);    		  	cellString = cellString + endStatement;
+    		    sql += cellString;
+	    		stmt.execute(sql);
+	} catch (Exception e) {
+		System.out.println(e.getMessage());
+	}	
 }
 	
 public void getRecords() {
@@ -58,30 +67,18 @@ public void getRecords() {
 			String firstName = rs.getString("name");
 			int personAge = rs.getInt("age");
 			System.out.println(id + "    " + firstName + "  " + personAge);
-		}
-
-		
+		}	
 	} catch(Exception e) {
-		System.out.println("Error2: " + e.getMessage());
+		System.out.println(e.getMessage());
 	}
 	
-}
-
-public void insertRecords(String query ) {
-	try {
-		this.stmt = c.createStatement();
-		stmt.executeQuery(query);
-		
-	} catch (Exception e) {
-		System.out.println("Error3: " + e.getMessage());
-	}
 }
 
 public void closeConnection() {
 	try {
 		c.close();
 	} catch (Exception e) {
-		System.out.println("Error4: " + e.getMessage());
+		System.out.println(e.getMessage());
 	}
 }
 }
