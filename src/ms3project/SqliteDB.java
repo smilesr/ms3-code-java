@@ -46,6 +46,7 @@ public class SqliteDB {
 			sql = "INSERT INTO Interviews(A,B,C,D,E,F,G,H,I,J) VALUES(";
 			cellString = "";
 			for (String cell: row) {
+				// using regex to format data appropriately
 				cell = cell.replaceAll("\"","\\\\\'");
 				cell = "\"" + cell + "\"" +  ",";
 				cellString += cell;
@@ -57,21 +58,7 @@ public class SqliteDB {
 			System.out.println(e.getMessage());
 		}	
 	}
-	
-	public void getRecords() {
-		try {
-			this.stmt = c.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM test");
-			while(rs.next()) {
-				int id = rs.getInt("primary_key");
-				String firstName = rs.getString("name");
-				int personAge = rs.getInt("age");
-				System.out.println(id + "    " + firstName + "  " + personAge);
-			}	
-		} catch(Exception e) {
-			System.out.println(e.getMessage());
-		}	
-	}
+
 
 	public void closeConnection() {
 		try {

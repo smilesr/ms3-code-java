@@ -17,22 +17,20 @@ public class ScanCsv {
 
     public static void main(String[] args) throws IOException {
     	
-        for (String s: args) {
-            System.out.println(s);
-        }
         Path currentRelativePath = Paths.get("");
         String s = currentRelativePath.toAbsolutePath().toString();
         String path = s + "/src";
-        String fileName = path + "/cleanedms3Interview.csv";
-
+//        String fileName = path + "/cleanedms3Interview.csv";
+        String fileName = path + "/ms3minisample.csv";
+        // Read in data records
         List<List<String>> fileContent = readTextFile(fileName);
         List<List<String>> cleanList = new ArrayList<>(), dirtyList = new ArrayList<>();
        
         cleanList.addAll(fileContent);
 
+        //Parse the records and separate by records that have all fields vs records that do not;  also count the failed records
         int failureCount = 0;
         int totalCount = fileContent.size() - 1;
-        outerloop:
         for(List<String> line : fileContent) {  
         		innerLoop:
     			for (int i = 0; i < line.size(); i++) {
@@ -44,12 +42,12 @@ public class ScanCsv {
     				};
     			} 
         } 
-        
+        // send the good records to be added to SQLite3 database
         contactDatabase(cleanList);
-        
+        // print the counts of total records, good records and bad records to log file
         printLogFile(totalCount, failureCount);
-        
-        sendToCsv(cleanList);
+        // send bad records to a .csv file
+        sendToCsv(dirtyList);
         
     }
     
@@ -80,6 +78,7 @@ public class ScanCsv {
       SqliteDB db = new SqliteDB();
       List<String> columnHeadings = records.get(0); 
       db.createTable(columnHeadings);  
+      // already created column headings so removing row with column headings from the records to be inserted into DB
       records.remove(0);
 	  for(List<String> row: records) {	
 	    		db.insertRecord(row);
@@ -92,13 +91,16 @@ public class ScanCsv {
         List<List<String>> lines = new ArrayList<>();
         Scanner inputStream;
         try{
+        	// suppressed a warning here indicating Scanner object not closed
         		inputStream = new Scanner(file).useDelimiter("\n");
         		while(inputStream.hasNext()){
             		String line = inputStream.next();
+            		// used regex to split field on comma and to ignore excess quotes
             		String[] values = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-                lines.add(Arrays.asList(values));
-            }
-            inputStream.close();
+            		lines.add(Arrays.asList(values));
+        		}
+                inputStream.close();
+
         }catch (FileNotFoundException e) {
             e.printStackTrace();
         }
