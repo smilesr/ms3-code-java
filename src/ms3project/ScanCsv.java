@@ -19,9 +19,9 @@ public class ScanCsv {
     	
         Path currentRelativePath = Paths.get("");
         String s = currentRelativePath.toAbsolutePath().toString();
-        String path = s + "/src";
-//        String fileName = path + "/cleanedms3Interview.csv";
-        String fileName = path + "/ms3minisample.csv";
+        System.out.println(currentRelativePath);
+        String path = s + "/resources";
+        String fileName = path + "/cleanedms3Interview.csv"; 
         // Read in data records
         List<List<String>> fileContent = readTextFile(fileName);
         List<List<String>> cleanList = new ArrayList<>(), dirtyList = new ArrayList<>();

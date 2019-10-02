@@ -6,12 +6,19 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="src" path="resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-12">
 		<attributes>
+			<attribute name="module" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="/Users/robertsmiles1/post31119/sqlitedriver/sqlite-jdbc-3.27.2.1.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/robertsmiles1/Downloads/maven-jar-plugin-3.1.2.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>

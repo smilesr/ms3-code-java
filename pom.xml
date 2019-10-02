@@ -11,14 +11,29 @@
         <version>3.8.0</version>
         <configuration>
           <release>12</release>
-          <archive>
-          <manifest>
-            <mainClass>ms3project.ScanCsv</mainClass>
-          </manifest>
-        </archive>
         </configuration>
       </plugin>
+      		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-jar-plugin</artifactId>
+			<version>2.4</version>
+			<configuration>
+				<archive>
+					<manifest>
+						<mainClass>ms3project.ScanCsv</mainClass>
+					</manifest>
+				</archive>
+			</configuration>
+		</plugin>
     </plugins>
+    <resources>
+      <resource>
+        <directory>../resources</directory>
+        <includes>
+          <include>*.csv</include>
+        </includes>
+      </resource>
+    </resources>
   </build>
   <dependencies>
 	<dependency>
